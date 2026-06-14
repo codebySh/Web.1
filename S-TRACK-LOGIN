@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S-TRACK Login UI</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #011C40,
+        #023859,
+        #26658C
+    );
+
+    overflow-x:hidden;
+}
+
+/* =====================
+   NAVBAR
+===================== */
+
+nav{
+
+    width:100%;
+
+    height:80px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:
+    1px solid rgba(167,235,242,.15);
+}
+
+.logo{
+
+    color:#A7EBF2;
+
+    font-size:2rem;
+
+    font-weight:700;
+}
+
+.nav-links{
+
+    display:flex;
+
+    gap:35px;
+
+    list-style:none;
+}
+
+.nav-links a{
+
+    text-decoration:none;
+
+    color:#EAFBFF;
+
+    transition:.3s;
+}
+
+.nav-links a:hover{
+
+    color:#A7EBF2;
+}
+
+.login-top{
+
+    padding:10px 22px;
+
+    background:transparent;
+
+    color:#A7EBF2;
+
+    border:
+    1px solid rgba(167,235,242,.35);
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.login-top:hover{
+
+    background:#54ACBF;
+
+    color:#011C40;
+}
+
+/* =====================
+   MODAL
+===================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    rgba(0,0,0,.25);
+
+    z-index:1000;
+
+    padding:20px;
+}
+
+/* =====================
+   LOGIN CARD
+===================== */
+
+.login-box{
+
+    width:min(420px,95vw);
+
+    padding:35px;
+
+    border-radius:24px;
+
+    position:relative;
+
+    background:
+    rgba(84,172,191,.12);
+
+    backdrop-filter:blur(25px);
+
+    -webkit-backdrop-filter:blur(25px);
+
+    border:
+    1px solid rgba(167,235,242,.25);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+}
+
+.login-box h1{
+
+    text-align:center;
+
+    color:#EAFBFF;
+
+    margin-bottom:30px;
+}
+
+/* =====================
+   CLOSE BUTTON
+===================== */
+
+.close-btn{
+
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:#023859;
+
+    color:#A7EBF2;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    font-size:22px;
+}
+
+/* =====================
+   INPUTS
+===================== */
+
+.input-box{
+
+    position:relative;
+
+    margin:25px 0;
+}
+
+.input-box input{
+
+    width:100%;
+
+    padding:12px 5px;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:#EAFBFF;
+
+    border-bottom:
+    2px solid rgba(167,235,242,.4);
+}
+
+.input-box label{
+
+    position:absolute;
+
+    left:5px;
+    top:12px;
+
+    color:#A7EBF2;
+
+    pointer-events:none;
+
+    transition:.3s;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label{
+
+    top:-14px;
+
+    font-size:12px;
+}
+
+/* =====================
+   OPTIONS
+===================== */
+
+.options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+    color:#EAFBFF;
+}
+
+.options a{
+
+    color:#A7EBF2;
+
+    text-decoration:none;
+}
+
+/* =====================
+   LOGIN BUTTON
+===================== */
+
+.login-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        90deg,
+        #54ACBF,
+        #26658C
+    );
+
+    transition:.3s;
+}
+
+.login-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 20px rgba(167,235,242,.4);
+}
+
+/* =====================
+   REGISTER
+===================== */
+
+.register{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#EAFBFF;
+}
+
+.register a{
+
+    color:#A7EBF2;
+
+    text-decoration:none;
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media(max-width:768px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .logo{
+        font-size:1.7rem;
+    }
+
+    .login-box{
+        padding:25px;
+    }
+
+    .options{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">S-TRACK</div>
+
+    <ul class="nav-links">
+
+        <li><a href="#">Home</a></li>
+
+        <li><a href="https://codebysh.github.io/Portfolio2/#experience">About</a></li>
+
+        <li><a href="#">Services</a></li>
+
+        <li><a href="https://www.instagram.com/video_art_shivam?igsh=bm8yd2M5aHVwaGlp">Contact</a></li>
+
+    </ul>
+
+    <button
+    class="login-top"
+    id="openLogin">
+
+        Login
+
+    </button>
+
+</nav>
+
+<!-- LOGIN MODAL -->
+
+<div
+class="modal"
+id="loginModal">
+
+    <div class="login-box">
+
+        <div
+        class="close-btn"
+        id="closeLogin">
+
+            ×
+
+        </div>
+
+        <h1>Login</h1>
+
+        <form>
+
+            <div class="input-box">
+
+                <input
+                type="email"
+                required>
+
+                <label>Email</label>
+
+            </div>
+
+            <div class="input-box">
+
+                <input
+                type="password"
+                required>
+
+                <label>Password</label>
+
+            </div>
+
+            <div class="options">
+
+                <label>
+
+                    <input
+                    type="checkbox">
+
+                    Remember me
+
+                </label>
+
+                <a href="#">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+            <button
+            class="login-btn"
+            type="submit">
+
+                Login
+
+            </button>
+
+            <div class="register">
+
+                Don't have an account?
+
+                <a href="#">
+                    Register
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+/* Elements */
+
+const openBtn =
+document.getElementById("openLogin");
+
+const closeBtn =
+document.getElementById("closeLogin");
+
+const modal =
+document.getElementById("loginModal");
+
+/* Open Modal */
+
+openBtn.addEventListener("click", () => {
+
+    modal.style.display = "flex";
+
+});
+
+/* Close Modal */
+
+closeBtn.addEventListener("click", () => {
+
+    modal.style.display = "none";
+
+});
+
+/* Click Outside */
+
+window.addEventListener("click", (e) => {
+
+    if(e.target === modal){
+
+        modal.style.display = "none";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
