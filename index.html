@@ -744,7 +744,7 @@ id="loginModal">
 
         <h1>Login</h1>
 
-        <form>
+        <form id="loginForm">
 
             <div class="input-box">
 
@@ -806,6 +806,7 @@ id="loginModal">
     </div>
 
 </div>
+  
   <!-- REGISTER MODAL -->
 
 <div class="modal" id="registerModal">
@@ -1099,6 +1100,15 @@ ctaBtn.addEventListener(
     "click",
     openLoginModal
 );
+    const loginForm = document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    window.location.href = "dashboard.html";
+
+});
   </script>
 <footer>
         <p>© 2026 S-TRACK. All rights reserved.</p>
