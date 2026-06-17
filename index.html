@@ -17,18 +17,33 @@
 body{
     min-height:100vh;
 
+    display:flex;
+    flex-direction:column;
+
     background:
     linear-gradient(
         135deg,
         #011C40,
         #023859,
         #26658C
-    
     );
 
     overflow-x:hidden;
 }
 
+  footer{
+    margin-top:auto;
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#EAFBFF;
+
+    border-top:
+    1px solid rgba(167,235,242,.15);
+  }
+  
 /* =====================
    NAVBAR
 ===================== */
@@ -70,8 +85,14 @@ nav{
 
     list-style:none;
 }
+  .nav-links{
+    margin-left:auto;
+    margin-right:20px;
+  }
 
 .nav-links a{
+
+    position:relative;
 
     text-decoration:none;
 
@@ -80,6 +101,40 @@ nav{
     transition:.3s;
 }
 
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:-6px;
+
+    width:0;
+
+    height:2px;
+
+    background:#A7EBF2;
+
+    box-shadow:
+    0 0 8px #A7EBF2,
+    0 0 16px #A7EBF2;
+
+    transform:translateX(-50%);
+
+    transition:.35s ease;
+}
+
+.nav-links a:hover{
+
+    color:#A7EBF2;
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+}
 .nav-links a:hover{
 
     color:#A7EBF2;
@@ -362,7 +417,284 @@ nav{
         gap:10px;
     }
 }
+  .hero{
+    padding:80px 20px;
+  
+    display:flex;
+    flex-direction:column;
 
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+.hero h1{
+    font-size:3rem;
+    color:#EAFBFF;
+}
+
+.hero p{
+    margin-top:20px;
+    max-width:600px;
+
+    color:#A7EBF2;
+
+    line-height:1.7;
+}
+
+.hero button{
+    margin-top:30px;
+
+    padding:15px 30px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:#54ACBF;
+
+    color:#011C40;
+
+    font-weight:700;
+}
+  .features{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+
+    padding:80px 30px;
+
+    max-width:1200px;
+
+    margin:auto;
+}
+
+.feature-card{
+
+    padding:30px;
+
+    border-radius:20px;
+
+    background:
+    rgba(84,172,191,.12);
+
+    backdrop-filter:blur(15px);
+
+    border:
+    1px solid rgba(167,235,242,.2);
+
+    transition:.3s;
+}
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
+}
+
+.feature-card h3{
+
+    color:#EAFBFF;
+
+    margin-bottom:15px;
+
+    font-size:1.4rem;
+}
+
+.feature-card p{
+
+    color:#A7EBF2;
+
+    line-height:1.7;
+}
+
+  /* WHY S-TRACK */
+
+.why-track{
+
+    max-width:1200px;
+
+    margin:50px auto;
+
+    padding:0 30px;
+
+    text-align:center;
+}
+
+.why-track h2{
+
+    color:#EAFBFF;
+
+    margin-bottom:40px;
+
+    font-size:2.5rem;
+}
+
+.why-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+}
+.why-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+  
+.why-card{
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:rgba(84,172,191,.12);
+
+    border:1px solid rgba(167,235,242,.2);
+
+    backdrop-filter:blur(15px);
+}
+
+  .why-card{
+
+    padding:18px;
+}
+
+.why-card h3{
+
+    font-size:1rem;
+}
+
+.why-card p{
+
+    font-size:.85rem;
+}
+.why-card h3{
+
+    color:#EAFBFF;
+
+    margin-bottom:15px;
+}
+
+.why-card p{
+
+    color:#A7EBF2;
+}
+
+
+/* HOW IT WORKS */
+
+.steps{
+
+    max-width:1000px;
+
+    margin:50px auto;
+
+    padding:0 30px;
+
+    text-align:center;
+}
+
+.steps h2{
+
+    color:#EAFBFF;
+
+    margin-bottom:40px;
+
+    font-size:2.5rem;
+}
+
+.step-box{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+}
+
+.step-box div{
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:rgba(84,172,191,.12);
+
+    border:1px solid rgba(167,235,242,.2);
+
+    color:#EAFBFF;
+
+    font-size:1.2rem;
+
+    font-weight:600;
+}
+
+
+/* CTA */
+
+.cta{
+
+    text-align:center;
+
+    padding:100px 30px;
+}
+
+.cta h2{
+
+    color:#EAFBFF;
+
+    font-size:2.5rem;
+
+    margin-bottom:20px;
+}
+
+.cta p{
+
+    color:#A7EBF2;
+
+    margin-bottom:30px;
+}
+
+.cta button{
+
+    padding:15px 35px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    background:#54ACBF;
+
+    color:#011C40;
+}
 </style>
 </head>
 
@@ -463,8 +795,8 @@ id="loginModal">
 
                 Don't have an account?
 
-                <a href="#">
-                    Register
+                <a href="#" id="showRegister">
+    Register
                 </a>
 
             </div>
@@ -474,10 +806,191 @@ id="loginModal">
     </div>
 
 </div>
+  <!-- REGISTER MODAL -->
 
-<script>
+<div class="modal" id="registerModal">
 
-/* Elements */
+    <div class="login-box">
+
+        <div class="close-btn" id="closeRegister">
+            ×
+        </div>
+
+        <h1>Registration</h1>
+
+        <form>
+
+            <div class="input-box">
+
+                <input type="text" required>
+
+                <label>Username</label>
+
+            </div>
+
+            <div class="input-box">
+
+                <input type="email" required>
+
+                <label>Email</label>
+
+            </div>
+
+            <div class="input-box">
+
+                <input type="password" required>
+
+                <label>Password</label>
+
+            </div>
+
+            <div class="options">
+
+                <label>
+
+                    <input type="checkbox" required>
+
+                    Accept Terms
+
+                </label>
+
+            </div>
+
+            <button
+            class="login-btn"
+            type="submit">
+
+                Register
+
+            </button>
+
+            <div class="register">
+
+                Already have an account?
+
+                <a href="#" id="showLogin">
+                    Login
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+  <section class="hero">
+
+    <h1>
+        Track Your Progress,
+        Build Your Future
+    </h1>
+
+    <p>
+        S-TRACK helps students manage tasks,
+        monitor progress and stay productive.
+    </p>
+
+    <button id="heroLoginBtn">
+        Get Started
+    </button>
+
+  </section>
+  
+  <section class="features">
+
+    <div class="feature-card">
+
+        <h3>📋 Task Manager</h3>
+
+        <p>
+            Create, organize and manage your daily tasks efficiently.
+        </p>
+
+    </div>
+
+    <div class="feature-card">
+
+        <h3>📈 Progress Tracker</h3>
+
+        <p>
+            Monitor your consistency and growth every day.
+        </p>
+
+    </div>
+
+    <div class="feature-card">
+
+        <h3>📊 Analytics</h3>
+
+        <p>
+            View productivity insights and performance reports.
+        </p>
+
+    </div>
+
+  </section>
+  <section class="why-track">
+
+    <h2>Why S-TRACK?</h2>
+
+    <div class="why-grid">
+
+        <div class="why-card">
+            <h3>🎯 Stay Focused</h3>
+            <p>Keep your goals clear and organized.</p>
+        </div>
+
+        <div class="why-card">
+            <h3>📅 Plan Daily</h3>
+            <p>Manage your daily activities easily.</p>
+        </div>
+
+        <div class="why-card">
+            <h3>📈 Track Growth</h3>
+            <p>See your progress over time.</p>
+        </div>
+
+        <div class="why-card">
+            <h3>⚡ Improve Productivity</h3>
+            <p>Build consistency and discipline.</p>
+        </div>
+
+    </div>
+
+  </section>
+
+  <section class="steps">
+
+    <h2>How It Works</h2>
+
+    <div class="step-box">
+        <div>1️⃣ Create Account</div>
+        <div>2️⃣ Add Tasks</div>
+        <div>3️⃣ Track Progress</div>
+    </div>
+
+  </section>
+
+  <section class="cta">
+
+    <h2>Ready to Start?</h2>
+
+    <p>
+        Join S-TRACK and take control of your productivity.
+    </p>
+
+    <button id="ctaBtn">
+        Get Started
+    </button>
+
+  </section>
+
+  
+  
+  <script>
+
+/* LOGIN ELEMENTS */
 
 const openBtn =
 document.getElementById("openLogin");
@@ -485,40 +998,110 @@ document.getElementById("openLogin");
 const closeBtn =
 document.getElementById("closeLogin");
 
-const modal =
+const loginModal =
 document.getElementById("loginModal");
+    const heroBtn =
+document.getElementById("heroLoginBtn");
 
-/* Open Modal */
+/* REGISTER ELEMENTS */
+
+const registerModal =
+document.getElementById("registerModal");
+
+const closeRegister =
+document.getElementById("closeRegister");
+
+const showRegister =
+document.getElementById("showRegister");
+
+const showLogin =
+document.getElementById("showLogin");
+
+/* OPEN LOGIN */
 
 openBtn.addEventListener("click", () => {
 
-    modal.style.display = "flex";
+    loginModal.style.display = "flex";
 
 });
 
-/* Close Modal */
+/* CLOSE LOGIN */
 
 closeBtn.addEventListener("click", () => {
 
-    modal.style.display = "none";
+    loginModal.style.display = "none";
 
 });
 
-/* Click Outside */
+/* LOGIN -> REGISTER */
+
+showRegister.addEventListener("click", (e) => {
+
+    e.preventDefault();
+
+    loginModal.style.display = "none";
+
+    registerModal.style.display = "flex";
+
+});
+
+/* REGISTER -> LOGIN */
+
+showLogin.addEventListener("click", (e) => {
+
+    e.preventDefault();
+
+    registerModal.style.display = "none";
+
+    loginModal.style.display = "flex";
+
+});
+
+/* CLOSE REGISTER */
+
+closeRegister.addEventListener("click", () => {
+
+    registerModal.style.display = "none";
+
+});
+
+/* CLICK OUTSIDE */
 
 window.addEventListener("click", (e) => {
 
-    if(e.target === modal){
+    if(e.target === loginModal){
 
-        modal.style.display = "none";
+        loginModal.style.display = "none";
+
+    }
+
+    if(e.target === registerModal){
+
+        registerModal.style.display = "none";
 
     }
 
 });
+    function openLoginModal(){
 
-</script>
+    loginModal.style.display = "flex";
+
+}
+
+openBtn.addEventListener("click", openLoginModal);
+
+heroBtn.addEventListener("click", openLoginModal);
+
+    const ctaBtn =
+document.getElementById("ctaBtn");
+
+ctaBtn.addEventListener(
+    "click",
+    openLoginModal
+);
+  </script>
 <footer>
-        <p>&copy; © 2026 S-TRACK. All rights reserved.</p>
+        <p>© 2026 S-TRACK. All rights reserved.</p>
 </footer>
 </body>
 </html>
