@@ -1,10 +1,9 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>S-TRACK Dashboard</title>
+<title>S-TRACK Login UI</title>
 
 <style>
 
@@ -17,897 +16,1102 @@
 
 body{
     min-height:100vh;
-    background:linear-gradient(
+
+    display:flex;
+    flex-direction:column;
+
+    background:
+    linear-gradient(
         135deg,
         #011C40,
         #023859,
         #26658C
     );
+
+    overflow-x:hidden;
+}
+
+  footer{
+    margin-top:auto;
+
+    text-align:center;
+
+    padding:20px;
+
     color:#EAFBFF;
-    padding:15px;
-}
 
-.dashboard{
-    max-width:1400px;
-    margin:auto;
-}
-
-/* NAVBAR */
+    border-top:
+    1px solid rgba(167,235,242,.15);
+  }
+  
+/* =====================
+   NAVBAR
+===================== */
 
 nav{
+
+    width:100%;
+
+    height:80px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:20px;
-    background:rgba(84,172,191,.08);
-    backdrop-filter:blur(20px);
-    border:1px solid rgba(167,235,242,.15);
+
+    padding:0 30px;
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:
+    1px solid rgba(167,235,242,.15);
 }
 
 .logo{
+
+    color:#A7EBF2;
+
     font-size:2rem;
+
     font-weight:700;
-    color:#A7EBF2;
 }
 
-.profile{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    background:#54ACBF;
-    color:#011C40;
+.nav-links{
+
     display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:bold;
+
+    gap:35px;
+
+    list-style:none;
 }
+  .nav-links{
+    margin-left:auto;
+    margin-right:20px;
+  }
 
-/* CARDS */
+.nav-links a{
 
-.card{
-    background:rgba(84,172,191,.10);
-    backdrop-filter:blur(25px);
-    border:1px solid rgba(167,235,242,.20);
-    border-radius:22px;
-    padding:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.20);
-}
+    position:relative;
 
-.card h3{
-    color:#A7EBF2;
-    margin-bottom:15px;
-}
+    text-decoration:none;
 
-/* GRID SECTIONS */
+    color:#EAFBFF;
 
-.stats,
-.trackers{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-    margin-bottom:15px;
-}
-
-.middle{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    margin-bottom:15px;
-}
-
-.bottom{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-}
-
-/* TEXT */
-
-.stat-number{
-    font-size:2rem;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-/* BUTTONS */
-
-.btn{
-    margin-top:12px;
-    padding:10px 18px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:600;
-    color:#011C40;
-    background:linear-gradient(
-        90deg,
-        #54ACBF,
-        #A7EBF2
-    );
-    -webkit-tap-highlight-color:transparent;
-}
-
-.btn:active{
-    transform:scale(.97);
-}
-
-/* PROGRESS */
-
-.progress{
-    width:100%;
-    height:10px;
-    background:rgba(255,255,255,.1);
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:10px;
-}
-
-.progress-fill{
-    width:0%;
-    height:100%;
-    background:linear-gradient(
-        90deg,
-        #54ACBF,
-        #A7EBF2
-    );
     transition:.3s;
 }
 
-/* GOALS */
+.nav-links a::after{
 
-.goal-item{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin:12px 0;
-}
+    content:"";
 
-/* GOAL CIRCLE */
+    position:absolute;
 
-.circle-wrap{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-top:10px;
-}
+    left:50%;
 
-.circle{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:
-    conic-gradient(
-        #A7EBF2 0deg,
-        rgba(255,255,255,.12) 0deg
-    );
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+    bottom:-6px;
 
-.inside-circle{
-    width:68px;
-    height:68px;
-    border-radius:50%;
-    background:#023859;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:bold;
-}
+    width:0;
 
-/* GRAPH */
-
-.graph{
-    height:180px;
-    display:flex;
-    align-items:flex-end;
-    gap:10px;
-    margin-top:15px;
-}
-
-.bar{
-    flex:1;
-    border-radius:14px 14px 0 0;
-    background:linear-gradient(
-        to top,
-        #26658C,
-        #A7EBF2
-    );
-}
-
-/* ACTIVITY */
-
-.activity-item{
-    padding:12px 0;
-    border-bottom:
-    1px solid rgba(255,255,255,.08);
-}
-#activityLog{
-
-    max-height:250px;
-
-    overflow-y:auto;
-
-    padding-right:5px;
-  }
-  #activityLog::-webkit-scrollbar{
-
-    width:6px;
-}
-
-#activityLog::-webkit-scrollbar-track{
-
-    background:
-    rgba(255,255,255,.05);
-
-    border-radius:10px;
-}
-
-#activityLog::-webkit-scrollbar-thumb{
+    height:2px;
 
     background:#A7EBF2;
 
-    border-radius:10px;
-}
-/* RESPONSIVE */
+    box-shadow:
+    0 0 8px #A7EBF2,
+    0 0 16px #A7EBF2;
 
-@media(max-width:900px){
+    transform:translateX(-50%);
 
-    .middle{
-        grid-template-columns:1fr;
-    }
-
-    .bottom{
-        grid-template-columns:1fr;
-    }
-
+    transition:.35s ease;
 }
 
+.nav-links a:hover{
+
+    color:#A7EBF2;
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+}
+.nav-links a:hover{
+
+    color:#A7EBF2;
+}
+
+.login-top{
+
+    padding:10px 22px;
+
+    background:transparent;
+
+    color:#A7EBF2;
+
+    border:
+    1px solid rgba(167,235,242,.35);
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.login-top:hover{
+
+    background:#54ACBF;
+
+    color:#011C40;
+}
+
+/* =====================
+   MODAL
+===================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    rgba(0,0,0,.25);
+
+    z-index:1000;
+
+    padding:20px;
+}
+
+/* =====================
+   LOGIN CARD
+===================== */
+
+.login-box{
+
+    width:min(420px,95vw);
+
+    padding:35px;
+
+    border-radius:24px;
+
+    position:relative;
+
+    background:
+    rgba(84,172,191,.12);
+
+    backdrop-filter:blur(25px);
+
+    -webkit-backdrop-filter:blur(25px);
+
+    border:
+    1px solid rgba(167,235,242,.25);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+}
+
+.login-box h1{
+
+    text-align:center;
+
+    color:#EAFBFF;
+
+    margin-bottom:30px;
+}
+
+/* =====================
+   CLOSE BUTTON
+===================== */
+
+.close-btn{
+
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:#023859;
+
+    color:#A7EBF2;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    font-size:22px;
+}
+
+/* =====================
+   INPUTS
+===================== */
+
+.input-box{
+
+    position:relative;
+
+    margin:25px 0;
+}
+
+.input-box input{
+
+    width:100%;
+
+    padding:12px 5px;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:#EAFBFF;
+
+    border-bottom:
+    2px solid rgba(167,235,242,.4);
+}
+
+.input-box label{
+
+    position:absolute;
+
+    left:5px;
+    top:12px;
+
+    color:#A7EBF2;
+
+    pointer-events:none;
+
+    transition:.3s;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label{
+
+    top:-14px;
+
+    font-size:12px;
+}
+
+/* =====================
+   OPTIONS
+===================== */
+
+.options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+    color:#EAFBFF;
+}
+
+.options a{
+
+    color:#A7EBF2;
+
+    text-decoration:none;
+}
+
+/* =====================
+   LOGIN BUTTON
+===================== */
+
+.login-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        90deg,
+        #54ACBF,
+        #26658C
+    );
+
+    transition:.3s;
+}
+
+.login-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 20px rgba(167,235,242,.4);
+}
+
+/* =====================
+   REGISTER
+===================== */
+
+.register{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#EAFBFF;
+}
+
+.register a{
+
+    color:#A7EBF2;
+
+    text-decoration:none;
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media(max-width:768px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .logo{
+        font-size:1.7rem;
+    }
+
+    .login-box{
+        padding:25px;
+    }
+
+    .options{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+    }
+}
+  .hero{
+    padding:80px 20px;
+  
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+.hero h1{
+    font-size:3rem;
+    color:#EAFBFF;
+}
+
+.hero p{
+    margin-top:20px;
+    max-width:600px;
+
+    color:#A7EBF2;
+
+    line-height:1.7;
+}
+
+.hero button{
+    margin-top:30px;
+
+    padding:15px 30px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:#54ACBF;
+
+    color:#011C40;
+
+    font-weight:700;
+}
+  .features{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+
+    padding:80px 30px;
+
+    max-width:1200px;
+
+    margin:auto;
+}
+
+.feature-card{
+
+    padding:30px;
+
+    border-radius:20px;
+
+    background:
+    rgba(84,172,191,.12);
+
+    backdrop-filter:blur(15px);
+
+    border:
+    1px solid rgba(167,235,242,.2);
+
+    transition:.3s;
+}
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
+}
+
+.feature-card h3{
+
+    color:#EAFBFF;
+
+    margin-bottom:15px;
+
+    font-size:1.4rem;
+}
+
+.feature-card p{
+
+    color:#A7EBF2;
+
+    line-height:1.7;
+}
+
+  /* WHY S-TRACK */
+
+.why-track{
+
+    max-width:1200px;
+
+    margin:50px auto;
+
+    padding:0 30px;
+
+    text-align:center;
+}
+
+.why-track h2{
+
+    color:#EAFBFF;
+
+    margin-bottom:40px;
+
+    font-size:2.5rem;
+}
+
+.why-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+}
+.why-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+  
+.why-card{
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:rgba(84,172,191,.12);
+
+    border:1px solid rgba(167,235,242,.2);
+
+    backdrop-filter:blur(15px);
+}
+
+  .why-card{
+
+    padding:18px;
+}
+
+.why-card h3{
+
+    font-size:1rem;
+}
+
+.why-card p{
+
+    font-size:.85rem;
+}
+.why-card h3{
+
+    color:#EAFBFF;
+
+    margin-bottom:15px;
+}
+
+.why-card p{
+
+    color:#A7EBF2;
+}
+
+
+/* HOW IT WORKS */
+
+.steps{
+
+    max-width:1000px;
+
+    margin:50px auto;
+
+    padding:0 30px;
+
+    text-align:center;
+}
+
+.steps h2{
+
+    color:#EAFBFF;
+
+    margin-bottom:40px;
+
+    font-size:2.5rem;
+}
+
+.step-box{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+}
+
+.step-box div{
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:rgba(84,172,191,.12);
+
+    border:1px solid rgba(167,235,242,.2);
+
+    color:#EAFBFF;
+
+    font-size:1.2rem;
+
+    font-weight:600;
+}
+
+
+/* CTA */
+
+.cta{
+
+    text-align:center;
+
+    padding:100px 30px;
+}
+
+.cta h2{
+
+    color:#EAFBFF;
+
+    font-size:2.5rem;
+
+    margin-bottom:20px;
+}
+
+.cta p{
+
+    color:#A7EBF2;
+
+    margin-bottom:30px;
+}
+
+.cta button{
+
+    padding:15px 35px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    background:#54ACBF;
+
+    color:#011C40;
+}
 </style>
 </head>
 
 <body>
 
-<div class="dashboard">
-
-<!-- NAVBAR -->
-
 <nav>
 
-    <div class="logo">
-        S-TRACK
-    </div>
+    <div class="logo">S-TRACK</div>
 
-    <div class="profile">
-        S
-    </div>
+    <ul class="nav-links">
+
+        <li><a href="#">Home</a></li>
+
+        <li><a href="https://codebysh.github.io/Portfolio2/#experience">About</a></li>
+
+        <li><a href="#">Services</a></li>
+
+        <li><a href="https://www.instagram.com/video_art_shivam?igsh=bm8yd2M5aHVwaGlp">Contact</a></li>
+
+    </ul>
+
+    <button
+    class="login-top"
+    id="openLogin">
+
+        Login
+
+    </button>
 
 </nav>
 
-<!-- TOP STATS -->
+<!-- LOGIN MODAL -->
 
-<section class="stats">
+<div
+class="modal"
+id="loginModal">
 
-    <div class="card">
+    <div class="login-box">
 
-        <h3>Level</h3>
+        <div
+        class="close-btn"
+        id="closeLogin">
 
-        <div class="stat-number">
-            <span id="levelValue">1</span>
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <h3>XP</h3>
-
-        <div class="stat-number">
-
-            <span id="xpValue">
-                0
-            </span>
-
-            / 500
+            ×
 
         </div>
 
-        <div class="progress">
+        <h1>Login</h1>
 
-            <div
-            class="progress-fill"
-            id="xpProgress">
+        <form id="loginForm">
+
+            <div class="input-box">
+
+                <input
+                type="email"
+                required>
+
+                <label>Email</label>
+
             </div>
 
-        </div>
+            <div class="input-box">
 
-    </div>
+                <input
+                type="password"
+                required>
 
-    <div class="card">
+                <label>Password</label>
 
-        <h3>Streak</h3>
+            </div>
 
-        <div class="stat-number">
-            12 Days
-        </div>
+            <div class="options">
 
-    </div>
+                <label>
 
-</section>
+                    <input
+                    type="checkbox">
 
-<!-- TRACKERS -->
+                    Remember me
 
-<section class="trackers">
+                </label>
 
-    <div class="card">
+                <a href="#">
+                    Forgot Password?
+                </a>
 
-        <h3>Workout</h3>
-
-        <p>Pushups: 50</p>
-        <p>Pullups: 12</p>
-
-        <button class="btn">
-            Add Workout
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        <h3>Study</h3>
-
-        <p>Today's Study</p>
-
-        <div class="stat-number">
-
-            <span id="studyMinutes">
-                150
-            </span>
-
-            min
-
-        </div>
-
-        <div style="display:flex;gap:10px;">
+            </div>
 
             <button
-            class="btn"
-            id="studyMinus">
+            class="login-btn"
+            type="submit">
 
-                -5 Min
+                Login
 
             </button>
 
-            <button
-            class="btn"
-            id="studyAdd">
+            <div class="register">
 
-                +5 Min
+                Don't have an account?
 
-            </button>
+                <a href="#" id="showRegister">
+    Register
+                </a>
 
-        </div>
+            </div>
+
+        </form>
 
     </div>
 
-    <div class="card">
+</div>
+  
+  <!-- REGISTER MODAL -->
 
-        <h3>Water Intake</h3>
+<div class="modal" id="registerModal">
+
+    <div class="login-box">
+
+        <div class="close-btn" id="closeRegister">
+            ×
+        </div>
+
+        <h1>Registration</h1>
+
+        <form>
+
+            <div class="input-box">
+
+                <input type="text" required>
+
+                <label>Username</label>
+
+            </div>
+
+            <div class="input-box">
+
+                <input type="email" required>
+
+                <label>Email</label>
+
+            </div>
+
+            <div class="input-box">
+
+                <input type="password" required>
+
+                <label>Password</label>
+
+            </div>
+
+            <div class="options">
+
+                <label>
+
+                    <input type="checkbox" required>
+
+                    Accept Terms
+
+                </label>
+
+            </div>
+
+            <button
+            class="login-btn"
+            type="submit">
+
+                Register
+
+            </button>
+
+            <div class="register">
+
+                Already have an account?
+
+                <a href="#" id="showLogin">
+                    Login
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+  <section class="hero">
+
+    <h1>
+        Track Your Progress,
+        Build Your Future
+    </h1>
+
+    <p>
+        S-TRACK helps students manage tasks,
+        monitor progress and stay productive.
+    </p>
+
+    <button id="heroLoginBtn">
+        Get Started
+    </button>
+
+  </section>
+  
+  <section class="features">
+
+    <div class="feature-card">
+
+        <h3>📋 Task Manager</h3>
 
         <p>
-
-            <span id="waterValue">
-                2100
-            </span>
-
-            ml / 3000 ml
-
+            Create, organize and manage your daily tasks efficiently.
         </p>
 
-        <div class="progress">
+    </div>
 
-            <div
-            class="progress-fill"
-            id="waterProgress">
-            </div>
+    <div class="feature-card">
 
+        <h3>📈 Progress Tracker</h3>
+
+        <p>
+            Monitor your consistency and growth every day.
+        </p>
+
+    </div>
+
+    <div class="feature-card">
+
+        <h3>📊 Analytics</h3>
+
+        <p>
+            View productivity insights and performance reports.
+        </p>
+
+    </div>
+
+  </section>
+  <section class="why-track">
+
+    <h2>Why S-TRACK?</h2>
+
+    <div class="why-grid">
+
+        <div class="why-card">
+            <h3>🎯 Stay Focused</h3>
+            <p>Keep your goals clear and organized.</p>
         </div>
 
-        <div style="display:flex;gap:10px;">
+        <div class="why-card">
+            <h3>📅 Plan Daily</h3>
+            <p>Manage your daily activities easily.</p>
+        </div>
 
-            <button
-            class="btn"
-            id="waterMinus">
+        <div class="why-card">
+            <h3>📈 Track Growth</h3>
+            <p>See your progress over time.</p>
+        </div>
 
-                -100 ml
-
-            </button>
-
-            <button
-            class="btn"
-            id="waterAdd">
-
-                +100 ml
-
-            </button>
-
+        <div class="why-card">
+            <h3>⚡ Improve Productivity</h3>
+            <p>Build consistency and discipline.</p>
         </div>
 
     </div>
 
-</section>
+  </section>
 
-<!-- MOOD + GOAL COMPLETION -->
+  <section class="steps">
 
-<section class="middle">
+    <h2>How It Works</h2>
 
-    <div class="card">
-
-        <h3>Mood</h3>
-
-        <div class="stat-number">
-            😄
-        </div>
-
-        <p>Productive</p>
-
+    <div class="step-box">
+        <div>1️⃣ Create Account</div>
+        <div>2️⃣ Add Tasks</div>
+        <div>3️⃣ Track Progress</div>
     </div>
 
-    <div class="card">
+  </section>
 
-        <h3>Goal Completion</h3>
+  <section class="cta">
 
-        <div class="circle-wrap">
+    <h2>Ready to Start?</h2>
 
-            <div
-            class="circle"
-            id="goalCircle">
+    <p>
+        Join S-TRACK and take control of your productivity.
+    </p>
 
-                <div
-                class="inside-circle"
-                id="goalPercent">
+    <button id="ctaBtn">
+        Get Started
+    </button>
 
-                    0%
+  </section>
 
-                </div>
+  
+  
+  <script>
 
-            </div>
+/* LOGIN ELEMENTS */
 
-        </div>
+const openBtn =
+document.getElementById("openLogin");
 
-    </div>
+const closeBtn =
+document.getElementById("closeLogin");
 
-</section>
+const loginModal =
+document.getElementById("loginModal");
+    const heroBtn =
+document.getElementById("heroLoginBtn");
 
-<!-- WEEKLY GRAPH -->
+/* REGISTER ELEMENTS */
 
-<div class="card" style="margin-bottom:15px;">
+const registerModal =
+document.getElementById("registerModal");
 
-    <h3>Weekly Progress</h3>
+const closeRegister =
+document.getElementById("closeRegister");
 
-    <div class="graph">
+const showRegister =
+document.getElementById("showRegister");
 
-        <div class="bar" style="height:40%"></div>
-        <div class="bar" style="height:60%"></div>
-        <div class="bar" style="height:75%"></div>
-        <div class="bar" style="height:55%"></div>
-        <div class="bar" style="height:90%"></div>
-        <div class="bar" style="height:70%"></div>
-        <div class="bar" style="height:100%"></div>
+const showLogin =
+document.getElementById("showLogin");
 
-    </div>
+/* OPEN LOGIN */
 
-</div>
+openBtn.addEventListener("click", () => {
 
-<!-- BOTTOM -->
+    loginModal.style.display = "flex";
 
-<section class="bottom">
+});
 
-    <div class="card">
+/* CLOSE LOGIN */
 
-        <h3>Today's Goals</h3>
+closeBtn.addEventListener("click", () => {
 
-        <div class="goal-item">
-            <input type="checkbox" class="goal-check">
-            Study 2 Hours
-        </div>
+    loginModal.style.display = "none";
 
-        <div class="goal-item">
-            <input type="checkbox" class="goal-check">
-            Workout
-        </div>
+});
 
-        <div class="goal-item">
-            <input type="checkbox" class="goal-check">
-            Drink 3L Water
-        </div>
+/* LOGIN -> REGISTER */
 
-        <div class="goal-item">
-            <input type="checkbox" class="goal-check">
-            Read 10 Pages
-        </div>
+showRegister.addEventListener("click", (e) => {
 
-    </div>
+    e.preventDefault();
 
-    <div class="card">
+    loginModal.style.display = "none";
 
-        <h3>Recent Activity</h3>
+    registerModal.style.display = "flex";
 
-        <div id="activityLog">
+});
 
-        </div>
+/* REGISTER -> LOGIN */
 
-    </div>
+showLogin.addEventListener("click", (e) => {
 
-</section>
+    e.preventDefault();
 
-<script src="script.js"></script>
+    registerModal.style.display = "none";
 
-</div>
+    loginModal.style.display = "flex";
+
+});
+
+/* CLOSE REGISTER */
+
+closeRegister.addEventListener("click", () => {
+
+    registerModal.style.display = "none";
+
+});
+
+/* CLICK OUTSIDE */
+
+window.addEventListener("click", (e) => {
+
+    if(e.target === loginModal){
+
+        loginModal.style.display = "none";
+
+    }
+
+    if(e.target === registerModal){
+
+        registerModal.style.display = "none";
+
+    }
+
+});
+    function openLoginModal(){
+
+    loginModal.style.display = "flex";
+
+}
+
+openBtn.addEventListener("click", openLoginModal);
+
+heroBtn.addEventListener("click", openLoginModal);
+
+    const ctaBtn =
+document.getElementById("ctaBtn");
+
+ctaBtn.addEventListener(
+    "click",
+    openLoginModal
+);
+    const loginForm = document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    window.location.href = "dashboard.html";
+
+});
+  </script>
+<footer>
+        <p>© 2026 S-TRACK. All rights reserved.</p>
+</footer>
 </body>
 </html>
-<script> 
-  /* =========================
-   ACTIVITY SYSTEM
-========================= */
-
-const activityLog =
-document.getElementById(
-    "activityLog"
-);
-
-function addActivity(text){
-
-    const item =
-    document.createElement(
-        "div"
-    );
-
-    item.className =
-    "activity-item";
-
-    item.textContent =
-    text;
-
-    activityLog.prepend(
-        item
-    );
-
-    localStorage.setItem(
-        "activities",
-        activityLog.innerHTML
-    );
-}
-
-function loadActivities(){
-
-    activityLog.innerHTML =
-
-    localStorage.getItem(
-        "activities"
-    ) || "";
-}
-
-/* =========================
-   XP SYSTEM
-========================= */
-
-let xp =
-Number(
-localStorage.getItem(
-    "xp"
-)
-) || 0;
-
-const xpValue =
-document.getElementById(
-    "xpValue"
-);
-
-const xpProgress =
-document.getElementById(
-    "xpProgress"
-);
-
-const levelValue =
-document.getElementById(
-    "levelValue"
-);
-
-function updateXP(){
-
-    if(xp < 0){
-
-        xp = 0;
-    }
-
-    xpValue.textContent =
-    xp;
-
-    xpProgress.style.width =
-    ((xp % 500) / 500) * 100
-    + "%";
-
-    const level =
-
-    Math.floor(
-        xp / 500
-    ) + 1;
-
-    levelValue.textContent =
-    level;
-
-    localStorage.setItem(
-        "xp",
-        xp
-    );
-}
-
-/* =========================
-   WATER SYSTEM
-========================= */
-
-let water =
-Number(
-localStorage.getItem(
-    "water"
-)
-) || 0;
-
-const waterValue =
-document.getElementById(
-    "waterValue"
-);
-
-const waterAdd =
-document.getElementById(
-    "waterAdd"
-);
-
-const waterMinus =
-document.getElementById(
-    "waterMinus"
-);
-
-const waterProgress =
-document.getElementById(
-    "waterProgress"
-);
-
-function updateWater(){
-
-    waterValue.textContent =
-    water;
-
-    waterProgress.style.width =
-    (water / 3000) * 100
-    + "%";
-
-    localStorage.setItem(
-        "water",
-        water
-    );
-}
-
-waterAdd.addEventListener(
-"click",
-()=>{
-
-    water += 100;
-
-    if(water > 3000){
-
-        water = 3000;
-    }
-
-    xp += 1;
-
-    addActivity(
-        "+100 ml Water"
-    );
-
-    updateWater();
-    updateXP();
-
-});
-
-waterMinus.addEventListener(
-"click",
-()=>{
-
-    water -= 100;
-
-    if(water < 0){
-
-        water = 0;
-    }
-
-    xp -= 1;
-
-    addActivity(
-        "-100 ml Water"
-    );
-
-    updateWater();
-    updateXP();
-
-});
-
-/* =========================
-   STUDY SYSTEM
-========================= */
-
-let study =
-Number(
-localStorage.getItem(
-    "study"
-)
-) || 0;
-
-const studyValue =
-document.getElementById(
-    "studyMinutes"
-);
-
-const studyAdd =
-document.getElementById(
-    "studyAdd"
-);
-
-const studyMinus =
-document.getElementById(
-    "studyMinus"
-);
-
-function updateStudy(){
-
-    studyValue.textContent =
-    study;
-
-    localStorage.setItem(
-        "study",
-        study
-    );
-}
-
-studyAdd.addEventListener(
-"click",
-()=>{
-
-    study += 5;
-
-    xp += 2;
-
-    addActivity(
-        "+5 Minutes Study"
-    );
-
-    updateStudy();
-    updateXP();
-
-});
-
-studyMinus.addEventListener(
-"click",
-()=>{
-
-    study -= 5;
-
-    if(study < 0){
-
-        study = 0;
-    }
-
-    xp -= 2;
-
-    addActivity(
-        "-5 Minutes Study"
-    );
-
-    updateStudy();
-    updateXP();
-
-});
-
-/* =========================
-   GOALS SYSTEM
-========================= */
-
-const goals =
-document.querySelectorAll(
-    ".goal-check"
-);
-
-goals.forEach(
-(goal,index)=>{
-
-    const saved =
-
-    localStorage.getItem(
-        "goal"+index
-    );
-
-    goal.checked =
-    saved === "true";
-
-    goal.addEventListener(
-    "change",
-    ()=>{
-
-        localStorage.setItem(
-            "goal"+index,
-            goal.checked
-        );
-
-        updateGoalProgress();
-
-    });
-
-});
-
-/* =========================
-   GOAL COMPLETION
-========================= */
-
-const goalCircle =
-document.getElementById(
-    "goalCircle"
-);
-
-const goalPercent =
-document.getElementById(
-    "goalPercent"
-);
-
-function updateGoalProgress(){
-
-    let completed = 0;
-
-    goals.forEach(goal=>{
-
-        if(goal.checked){
-
-            completed++;
-        }
-
-    });
-
-    const percent =
-
-    Math.round(
-        (completed / goals.length)
-        * 100
-    );
-
-    goalPercent.textContent =
-    percent + "%";
-
-    goalCircle.style.background =
-
-    `conic-gradient(
-        #A7EBF2
-        ${percent * 3.6}deg,
-
-        rgba(255,255,255,.12)
-        0deg
-    )`;
-}
-
-/* =========================
-   INITIAL LOAD
-========================= */
-
-loadActivities();
-
-updateXP();
-
-updateWater();
-
-updateStudy();
-
-updateGoalProgress();
-  </script>
-
