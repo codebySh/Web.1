@@ -1,0 +1,913 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>S-TRACK Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(
+        135deg,
+        #011C40,
+        #023859,
+        #26658C
+    );
+    color:#EAFBFF;
+    padding:15px;
+}
+
+.dashboard{
+    max-width:1400px;
+    margin:auto;
+}
+
+/* NAVBAR */
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:20px;
+    background:rgba(84,172,191,.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(167,235,242,.15);
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:700;
+    color:#A7EBF2;
+}
+
+.profile{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#54ACBF;
+    color:#011C40;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+/* CARDS */
+
+.card{
+    background:rgba(84,172,191,.10);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(167,235,242,.20);
+    border-radius:22px;
+    padding:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.20);
+}
+
+.card h3{
+    color:#A7EBF2;
+    margin-bottom:15px;
+}
+
+/* GRID SECTIONS */
+
+.stats,
+.trackers{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.middle{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.bottom{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+/* TEXT */
+
+.stat-number{
+    font-size:2rem;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+/* BUTTONS */
+
+.btn{
+    margin-top:12px;
+    padding:10px 18px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    color:#011C40;
+    background:linear-gradient(
+        90deg,
+        #54ACBF,
+        #A7EBF2
+    );
+    -webkit-tap-highlight-color:transparent;
+}
+
+.btn:active{
+    transform:scale(.97);
+}
+
+/* PROGRESS */
+
+.progress{
+    width:100%;
+    height:10px;
+    background:rgba(255,255,255,.1);
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        #54ACBF,
+        #A7EBF2
+    );
+    transition:.3s;
+}
+
+/* GOALS */
+
+.goal-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:12px 0;
+}
+
+/* GOAL CIRCLE */
+
+.circle-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:10px;
+}
+
+.circle{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:
+    conic-gradient(
+        #A7EBF2 0deg,
+        rgba(255,255,255,.12) 0deg
+    );
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.inside-circle{
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    background:#023859;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+/* GRAPH */
+
+.graph{
+    height:180px;
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
+    margin-top:15px;
+}
+
+.bar{
+    flex:1;
+    border-radius:14px 14px 0 0;
+    background:linear-gradient(
+        to top,
+        #26658C,
+        #A7EBF2
+    );
+}
+
+/* ACTIVITY */
+
+.activity-item{
+    padding:12px 0;
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+#activityLog{
+
+    max-height:250px;
+
+    overflow-y:auto;
+
+    padding-right:5px;
+  }
+  #activityLog::-webkit-scrollbar{
+
+    width:6px;
+}
+
+#activityLog::-webkit-scrollbar-track{
+
+    background:
+    rgba(255,255,255,.05);
+
+    border-radius:10px;
+}
+
+#activityLog::-webkit-scrollbar-thumb{
+
+    background:#A7EBF2;
+
+    border-radius:10px;
+}
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .middle{
+        grid-template-columns:1fr;
+    }
+
+    .bottom{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        S-TRACK
+    </div>
+
+    <div class="profile">
+        S
+    </div>
+
+</nav>
+
+<!-- TOP STATS -->
+
+<section class="stats">
+
+    <div class="card">
+
+        <h3>Level</h3>
+
+        <div class="stat-number">
+            <span id="levelValue">1</span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>XP</h3>
+
+        <div class="stat-number">
+
+            <span id="xpValue">
+                0
+            </span>
+
+            / 500
+
+        </div>
+
+        <div class="progress">
+
+            <div
+            class="progress-fill"
+            id="xpProgress">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Streak</h3>
+
+        <div class="stat-number">
+            12 Days
+        </div>
+
+    </div>
+
+</section>
+
+<!-- TRACKERS -->
+
+<section class="trackers">
+
+    <div class="card">
+
+        <h3>Workout</h3>
+
+        <p>Pushups: 50</p>
+        <p>Pullups: 12</p>
+
+        <button class="btn">
+            Add Workout
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Study</h3>
+
+        <p>Today's Study</p>
+
+        <div class="stat-number">
+
+            <span id="studyMinutes">
+                150
+            </span>
+
+            min
+
+        </div>
+
+        <div style="display:flex;gap:10px;">
+
+            <button
+            class="btn"
+            id="studyMinus">
+
+                -5 Min
+
+            </button>
+
+            <button
+            class="btn"
+            id="studyAdd">
+
+                +5 Min
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Water Intake</h3>
+
+        <p>
+
+            <span id="waterValue">
+                2100
+            </span>
+
+            ml / 3000 ml
+
+        </p>
+
+        <div class="progress">
+
+            <div
+            class="progress-fill"
+            id="waterProgress">
+            </div>
+
+        </div>
+
+        <div style="display:flex;gap:10px;">
+
+            <button
+            class="btn"
+            id="waterMinus">
+
+                -100 ml
+
+            </button>
+
+            <button
+            class="btn"
+            id="waterAdd">
+
+                +100 ml
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MOOD + GOAL COMPLETION -->
+
+<section class="middle">
+
+    <div class="card">
+
+        <h3>Mood</h3>
+
+        <div class="stat-number">
+            😄
+        </div>
+
+        <p>Productive</p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Goal Completion</h3>
+
+        <div class="circle-wrap">
+
+            <div
+            class="circle"
+            id="goalCircle">
+
+                <div
+                class="inside-circle"
+                id="goalPercent">
+
+                    0%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- WEEKLY GRAPH -->
+
+<div class="card" style="margin-bottom:15px;">
+
+    <h3>Weekly Progress</h3>
+
+    <div class="graph">
+
+        <div class="bar" style="height:40%"></div>
+        <div class="bar" style="height:60%"></div>
+        <div class="bar" style="height:75%"></div>
+        <div class="bar" style="height:55%"></div>
+        <div class="bar" style="height:90%"></div>
+        <div class="bar" style="height:70%"></div>
+        <div class="bar" style="height:100%"></div>
+
+    </div>
+
+</div>
+
+<!-- BOTTOM -->
+
+<section class="bottom">
+
+    <div class="card">
+
+        <h3>Today's Goals</h3>
+
+        <div class="goal-item">
+            <input type="checkbox" class="goal-check">
+            Study 2 Hours
+        </div>
+
+        <div class="goal-item">
+            <input type="checkbox" class="goal-check">
+            Workout
+        </div>
+
+        <div class="goal-item">
+            <input type="checkbox" class="goal-check">
+            Drink 3L Water
+        </div>
+
+        <div class="goal-item">
+            <input type="checkbox" class="goal-check">
+            Read 10 Pages
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Recent Activity</h3>
+
+        <div id="activityLog">
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+
+</div>
+</body>
+</html>
+<script> 
+  /* =========================
+   ACTIVITY SYSTEM
+========================= */
+
+const activityLog =
+document.getElementById(
+    "activityLog"
+);
+
+function addActivity(text){
+
+    const item =
+    document.createElement(
+        "div"
+    );
+
+    item.className =
+    "activity-item";
+
+    item.textContent =
+    text;
+
+    activityLog.prepend(
+        item
+    );
+
+    localStorage.setItem(
+        "activities",
+        activityLog.innerHTML
+    );
+}
+
+function loadActivities(){
+
+    activityLog.innerHTML =
+
+    localStorage.getItem(
+        "activities"
+    ) || "";
+}
+
+/* =========================
+   XP SYSTEM
+========================= */
+
+let xp =
+Number(
+localStorage.getItem(
+    "xp"
+)
+) || 0;
+
+const xpValue =
+document.getElementById(
+    "xpValue"
+);
+
+const xpProgress =
+document.getElementById(
+    "xpProgress"
+);
+
+const levelValue =
+document.getElementById(
+    "levelValue"
+);
+
+function updateXP(){
+
+    if(xp < 0){
+
+        xp = 0;
+    }
+
+    xpValue.textContent =
+    xp;
+
+    xpProgress.style.width =
+    ((xp % 500) / 500) * 100
+    + "%";
+
+    const level =
+
+    Math.floor(
+        xp / 500
+    ) + 1;
+
+    levelValue.textContent =
+    level;
+
+    localStorage.setItem(
+        "xp",
+        xp
+    );
+}
+
+/* =========================
+   WATER SYSTEM
+========================= */
+
+let water =
+Number(
+localStorage.getItem(
+    "water"
+)
+) || 0;
+
+const waterValue =
+document.getElementById(
+    "waterValue"
+);
+
+const waterAdd =
+document.getElementById(
+    "waterAdd"
+);
+
+const waterMinus =
+document.getElementById(
+    "waterMinus"
+);
+
+const waterProgress =
+document.getElementById(
+    "waterProgress"
+);
+
+function updateWater(){
+
+    waterValue.textContent =
+    water;
+
+    waterProgress.style.width =
+    (water / 3000) * 100
+    + "%";
+
+    localStorage.setItem(
+        "water",
+        water
+    );
+}
+
+waterAdd.addEventListener(
+"click",
+()=>{
+
+    water += 100;
+
+    if(water > 3000){
+
+        water = 3000;
+    }
+
+    xp += 1;
+
+    addActivity(
+        "+100 ml Water"
+    );
+
+    updateWater();
+    updateXP();
+
+});
+
+waterMinus.addEventListener(
+"click",
+()=>{
+
+    water -= 100;
+
+    if(water < 0){
+
+        water = 0;
+    }
+
+    xp -= 1;
+
+    addActivity(
+        "-100 ml Water"
+    );
+
+    updateWater();
+    updateXP();
+
+});
+
+/* =========================
+   STUDY SYSTEM
+========================= */
+
+let study =
+Number(
+localStorage.getItem(
+    "study"
+)
+) || 0;
+
+const studyValue =
+document.getElementById(
+    "studyMinutes"
+);
+
+const studyAdd =
+document.getElementById(
+    "studyAdd"
+);
+
+const studyMinus =
+document.getElementById(
+    "studyMinus"
+);
+
+function updateStudy(){
+
+    studyValue.textContent =
+    study;
+
+    localStorage.setItem(
+        "study",
+        study
+    );
+}
+
+studyAdd.addEventListener(
+"click",
+()=>{
+
+    study += 5;
+
+    xp += 2;
+
+    addActivity(
+        "+5 Minutes Study"
+    );
+
+    updateStudy();
+    updateXP();
+
+});
+
+studyMinus.addEventListener(
+"click",
+()=>{
+
+    study -= 5;
+
+    if(study < 0){
+
+        study = 0;
+    }
+
+    xp -= 2;
+
+    addActivity(
+        "-5 Minutes Study"
+    );
+
+    updateStudy();
+    updateXP();
+
+});
+
+/* =========================
+   GOALS SYSTEM
+========================= */
+
+const goals =
+document.querySelectorAll(
+    ".goal-check"
+);
+
+goals.forEach(
+(goal,index)=>{
+
+    const saved =
+
+    localStorage.getItem(
+        "goal"+index
+    );
+
+    goal.checked =
+    saved === "true";
+
+    goal.addEventListener(
+    "change",
+    ()=>{
+
+        localStorage.setItem(
+            "goal"+index,
+            goal.checked
+        );
+
+        updateGoalProgress();
+
+    });
+
+});
+
+/* =========================
+   GOAL COMPLETION
+========================= */
+
+const goalCircle =
+document.getElementById(
+    "goalCircle"
+);
+
+const goalPercent =
+document.getElementById(
+    "goalPercent"
+);
+
+function updateGoalProgress(){
+
+    let completed = 0;
+
+    goals.forEach(goal=>{
+
+        if(goal.checked){
+
+            completed++;
+        }
+
+    });
+
+    const percent =
+
+    Math.round(
+        (completed / goals.length)
+        * 100
+    );
+
+    goalPercent.textContent =
+    percent + "%";
+
+    goalCircle.style.background =
+
+    `conic-gradient(
+        #A7EBF2
+        ${percent * 3.6}deg,
+
+        rgba(255,255,255,.12)
+        0deg
+    )`;
+}
+
+/* =========================
+   INITIAL LOAD
+========================= */
+
+loadActivities();
+
+updateXP();
+
+updateWater();
+
+updateStudy();
+
+updateGoalProgress();
+  </script>
+
